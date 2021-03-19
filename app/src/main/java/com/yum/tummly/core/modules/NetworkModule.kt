@@ -37,7 +37,7 @@ object NetworkModule {
 
 
     @Provides
-    fun provideRestaurantsApi(retrofit: Retrofit): RecipeApi {
+    fun provideRecipeApi(retrofit: Retrofit): RecipeApi {
         return retrofit.create(RecipeApi::class.java)
     }
 

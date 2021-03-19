@@ -13,7 +13,7 @@ data class Matche(
     @Json(name = "id")
     var id: String = "",
     @Json(name = "imageUrlsBySize")
-    var imageUrlsBySize: Any = mapOf<String, String>(),
+    var imageUrlsBySize: Map<String, String> = mapOf<String, String>(),
     @Json(name = "ingredients")
     var ingredients: List<String> = listOf(),
     @Json(name = "rating")
