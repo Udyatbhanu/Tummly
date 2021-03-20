@@ -36,9 +36,10 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
                 is ResultWrapper.Success -> {
                     val recipesMapped = response.value.matches.map {
                         Recipe(
+                            id = it.id,
                             recipeName = it.recipeName,
                             imageUrl = it.imageUrlsBySize.iterator().next().value,
-                            it.totalTimeInSeconds
+                            timeInSeconds = it.totalTimeInSeconds
                         )
                     }
                     _cache.addAll(recipesMapped)
@@ -46,6 +47,7 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
                 }
 
             }
+            isRequestInProgress = false
         } catch (exception: IOException) {
             recipes.emit(Recipes.Error(exception))
         } catch (exception: HttpException) {
@@ -58,6 +60,15 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
     override suspend fun recipeSearchResultsAsStream(query: String): Flow<Recipes> {
         requestData(query)
         return recipes
+    }
+
+
+    /**
+     * Clear the list
+     */
+    override suspend fun clear() {
+        _cache.clear()
+        recipes.emit(Recipes.Success(_cache))
     }
 
     override suspend fun requestMore(query: String) {

@@ -11,6 +11,10 @@ import javax.inject.Inject
 
 class RecipeRepository @Inject constructor(private val api: RecipeApi) : BaseRepository() {
 
+
+    /**
+     *
+     */
     suspend fun searchRecipe(
         query: String,
         start: Int,
@@ -18,6 +22,10 @@ class RecipeRepository @Inject constructor(private val api: RecipeApi) : BaseRep
     ): ResultWrapper<GetRecipesResponse> =
         invoke { api.searchRecipes(Config.APP_ID, Config.APP_KEY, query, start, maxResult) }
 
+
+    /**
+     *
+     */
     suspend fun getRecipe(id: String): ResultWrapper<GetRecipeDetailsResponse> =
-        invoke { api.getRecipe(Config.APP_ID, Config.APP_KEY, id) }
+        invoke { api.getRecipe(id, Config.APP_ID, Config.APP_KEY) }
 }

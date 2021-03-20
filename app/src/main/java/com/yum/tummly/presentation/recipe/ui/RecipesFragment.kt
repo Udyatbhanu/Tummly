@@ -49,6 +49,9 @@ class RecipesFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(searchQuery: String?): Boolean {
+                    if(searchQuery.isNullOrEmpty()){
+                        viewModel.clear()
+                    }
 
                     return false
                 }

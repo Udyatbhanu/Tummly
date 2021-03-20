@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/recipesFragment">
 
     <fragment
         android:id="@+id/recipesFragment"
         android:name="com.yum.tummly.presentation.recipe.ui.RecipesFragment"
-        android:label="RecipesFragment" />
+        android:label="RecipesFragment" >
+        <action
+            android:id="@+id/action_recipesFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.yum.tummly.presentation.recipe_details.ui.RecipeDetailsFragment"
+        android:label="recipe_details_fragment"
+        tools:layout="@layout/recipe_details_fragment" />
 </navigation>

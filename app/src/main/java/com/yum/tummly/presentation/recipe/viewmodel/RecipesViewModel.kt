@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.yum.tummly.domain.model.Recipes
 import com.yum.tummly.domain.recipe.SearchRecipesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,4 +24,9 @@ class RecipesViewModel @Inject constructor(private val searchRecipesUseCase: Sea
     }
 
 
+    fun clear(){
+        viewModelScope.launch {
+            searchRecipesUseCase.clear()
+        }
+    }
 }

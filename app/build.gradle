@@ -62,6 +62,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${versions.coroutine_version}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine_version}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutine_version}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // testImplementation for pure JVM unit tests
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutine_version}"

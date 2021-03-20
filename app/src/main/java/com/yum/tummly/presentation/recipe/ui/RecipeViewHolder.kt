@@ -1,5 +1,7 @@
 package com.yum.tummly.presentation.recipe.ui
 
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,6 +24,10 @@ class RecipeViewHolder(private val binding: RecipeRowBinding):  RecyclerView.Vie
                     .error(R.drawable.common_full_open_on_phone))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(binding.recipeImageView)
+            var bundle = bundleOf("recipe" to item)
+            recipeLayout.setOnClickListener {
+                it.findNavController().navigate(R.id.recipeDetailsFragment, bundle)
+            }
             recipe = item
         }
 

@@ -7,11 +7,12 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class GetRecipeDetailsResponse(
     @Json(name = "attributes")
-    var attributes: Attributes = Attributes(),
+    var attributes: Attributes? = Attributes(),
     @Json(name = "attribution")
-    var attribution: Attribution = Attribution(),
+    var attribution: Attribution? = Attribution(),
     @Json(name = "flavors")
-    var flavors: Flavors = Flavors(),
+    var flavors: Map<String, Double>? = mapOf(),
+//    var flavors: Flavors = Flavors(),
     @Json(name = "id")
     var id: String = "",
     @Json(name = "images")
@@ -19,17 +20,19 @@ data class GetRecipeDetailsResponse(
     @Json(name = "ingredientLines")
     var ingredientLines: List<String> = listOf(),
     @Json(name = "name")
-    var name: String = "",
+    var name: String? = "",
     @Json(name = "numberOfServings")
-    var numberOfServings: Int = 0,
+    var numberOfServings: Int? = 0,
     @Json(name = "nutritionEstimates")
-    var nutritionEstimates: List<NutritionEstimate> = listOf(),
+    var nutritionEstimates: List<NutritionEstimate>? = listOf(),
     @Json(name = "rating")
-    var rating: Int = 0,
+    var rating: Int? = 0,
     @Json(name = "source")
-    var source: Source = Source(),
+    var source: Source? = Source(),
     @Json(name = "totalTime")
-    var totalTime: String = "",
+    var totalTime: String? = "",
     @Json(name = "totalTimeInSeconds")
-    var totalTimeInSeconds: Int = 0
+    var totalTimeInSeconds: Int? = 0,
+    @Json(name = "yield")
+    var servings: String? = ""
 )

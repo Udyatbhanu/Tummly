@@ -8,6 +8,10 @@ import retrofit2.http.Query
 
 interface RecipeApi {
 
+
+    /**
+     * Search Recipe API
+     */
     @GET(Endpoints.SEARCH_RECIPES)
     suspend fun searchRecipes(
         @Query("_app_id") _app_id: String,
@@ -17,10 +21,14 @@ interface RecipeApi {
         @Query("maxResult") item_per_page: Int
     ): GetRecipesResponse
 
+
+    /**
+     * Get Recipe API
+     */
     @GET(Endpoints.RECIPE_DETAILS)
     suspend fun getRecipe(
-        @Query("_app_id") _app_id: String,
-        @Query("_app_key") _app_key: String,
         @Path("id") id: String,
+        @Query("_app_id") _app_id: String,
+        @Query("_app_key") _app_key: String
     ): GetRecipeDetailsResponse
 }

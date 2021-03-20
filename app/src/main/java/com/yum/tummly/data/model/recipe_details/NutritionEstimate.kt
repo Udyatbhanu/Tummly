@@ -7,11 +7,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class NutritionEstimate(
     @Json(name = "attribute")
-    var attribute: String = "",
+    var attribute: String? = "",
     @Json(name = "description")
-    var description: String = "",
+    var description: String? = "",
     @Json(name = "unit")
-    var unit: Unit = Unit(),
+    var unit: Unit? = Unit(),
     @Json(name = "value")
-    var value: Double = 0.0
+    var value: Double? = 0.0
 )
