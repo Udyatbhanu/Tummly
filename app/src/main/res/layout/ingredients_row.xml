@@ -7,19 +7,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/ingredient"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="some text"
-            android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="@dimen/recipe_row_height"
+            android:padding="@dimen/recipe_row_padding"
+            android:textSize="@dimen/recipe_title_size"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

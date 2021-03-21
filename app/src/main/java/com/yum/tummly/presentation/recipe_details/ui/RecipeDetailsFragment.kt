@@ -13,7 +13,6 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.yum.tummly.R
 import com.yum.tummly.databinding.RecipeDetailsFragmentBinding
-import com.yum.tummly.domain.model.RecipeDetailsResponse
 import com.yum.tummly.domain.recipe.model.Recipe
 import com.yum.tummly.domain.recipe_details.model.RecipeDetails
 import com.yum.tummly.presentation.recipe_details.viewmodel.RecipeDetailsViewModel
@@ -32,6 +31,7 @@ class RecipeDetailsFragment : Fragment() {
 
     private lateinit var binding: RecipeDetailsFragmentBinding
     private val ingredientsAdapter : IngredientsAdapter = IngredientsAdapter()
+    private val flavorsAdapter : FlavorsAdapter = FlavorsAdapter()
 
     private val viewModel by viewModels<RecipeDetailsViewModel>()
 
@@ -76,7 +76,7 @@ class RecipeDetailsFragment : Fragment() {
 
 
         binding.ingredients.adapter = ingredientsAdapter
-
+        binding.flavors.adapter = flavorsAdapter
 
 
     }
@@ -86,8 +86,14 @@ class RecipeDetailsFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is RecipeDetailsState.Recipe -> {
-                    ingredientsAdapter.submitList(it.details.ingredientLines?.toMutableList())
+                    with(it.details){
+                        ingredientsAdapter.submitList(ingredientLines?.toMutableList())
+                        flavorsAdapter.submitList(flavors?.toMutableList())
+                        binding.details = it.details
+                    }
+
                 }
+
             }
         }
 

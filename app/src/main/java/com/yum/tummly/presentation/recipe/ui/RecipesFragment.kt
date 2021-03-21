@@ -20,6 +20,7 @@ class RecipesFragment : Fragment() {
     private val viewModel by viewModels<RecipesViewModel>()
     private val recipeListAdapter : RecipeListAdapter = RecipeListAdapter()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

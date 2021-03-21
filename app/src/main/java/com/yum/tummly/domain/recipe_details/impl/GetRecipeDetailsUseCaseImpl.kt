@@ -25,12 +25,15 @@ class GetRecipeDetailsUseCaseImpl  @Inject constructor(private val recipeReposit
         return recipe
     }
 
+
+    /**
+     *
+     */
     private fun mapFlavors(flavorsMap : Map<String, Double>) : List<Flavor>{
 
         var flavors = ArrayList<Flavor>()
-        val iterator  = flavorsMap.iterator()
-        while(iterator.hasNext()){
-            flavors.add(Flavor(iterator.next().key, iterator.next().value))
+        flavorsMap.forEach{
+            flavors.add(Flavor(it.key, it.value))
         }
         return flavors
 
@@ -41,11 +44,17 @@ class GetRecipeDetailsUseCaseImpl  @Inject constructor(private val recipeReposit
             when(val response = recipeRepository.getRecipe(id)){
                 is ResultWrapper.Success -> {
                     //Ref: com.yum.tummly.data.model.recipe_details.GetRecipeDetailsResponse
-                    val details = RecipeDetails(yield = response.value.servings?:"",
-                        ingredientLines = response.value.ingredientLines,
-                        flavors = mapFlavors(response.value.flavors?: mapOf<String, Double>()),
-                        image = response.value.images[0].hostedLargeUrl)
-                    recipe.emit(RecipeDetailsResponse.Success(details))
+                    with(response.value){
+                        val details = RecipeDetails(yield = servings?:"",
+                            ingredientLines = ingredientLines,
+                            flavors = mapFlavors(flavors?: mapOf<String, Double>()),
+                            image = images[0].hostedLargeUrl,
+                            numberOfServings = numberOfServings.toString())
+
+                        recipe.emit(RecipeDetailsResponse.Success(details))
+                    }
+
+
                 }
             }
 
