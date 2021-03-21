@@ -15,6 +15,8 @@ abstract class BaseRepository {
                 ResultWrapper.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
+                    is NoSuchElementException -> {
+                        ResultWrapper.GenericError(null, null)                    }
                     is IOException -> ResultWrapper.NetworkError
                     is HttpException -> {
                         val code = throwable.code()

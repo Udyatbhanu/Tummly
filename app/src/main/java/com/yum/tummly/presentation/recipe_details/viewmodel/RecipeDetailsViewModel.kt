@@ -25,7 +25,7 @@ class RecipeDetailsViewModel @Inject constructor(private val getRecipeDetailsUse
             getRecipeDetailsUseCase.getRecipeAsStream(id).collect {
                 it
                 when(it){
-                    is RecipeDetailsResponse.Success -> _state.value = RecipeDetailsState.Recipe(it)
+                    is RecipeDetailsResponse.Success -> _state.value = RecipeDetailsState.Recipe(it.data)
                     is RecipeDetailsResponse.Error -> _state.value = RecipeDetailsState.Error
                     else -> _state.value = RecipeDetailsState.Idle
                 }

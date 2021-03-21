@@ -13,5 +13,5 @@ data class Image(
     @Json(name = "hostedSmallUrl")
     var hostedSmallUrl: String = "",
     @Json(name = "imageUrlsBySize")
-    var imageUrlsBySize: Any = mapOf<String,String>()
+    var imageUrlsBySize: Map<String, String> = mapOf<String,String>()
 )

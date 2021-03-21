@@ -6,6 +6,7 @@ import com.yum.tummly.domain.model.RecipeDetailsResponse
 import com.yum.tummly.domain.model.Recipes
 import com.yum.tummly.domain.recipe.model.Recipe
 import com.yum.tummly.domain.recipe_details.GetRecipeDetailsUseCase
+import com.yum.tummly.domain.recipe_details.model.Flavor
 import com.yum.tummly.domain.recipe_details.model.RecipeDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -24,6 +25,17 @@ class GetRecipeDetailsUseCaseImpl  @Inject constructor(private val recipeReposit
         return recipe
     }
 
+    private fun mapFlavors(flavorsMap : Map<String, Double>) : List<Flavor>{
+
+        var flavors = ArrayList<Flavor>()
+        val iterator  = flavorsMap.iterator()
+        while(iterator.hasNext()){
+            flavors.add(Flavor(iterator.next().key, iterator.next().value))
+        }
+        return flavors
+
+    }
+
     private suspend fun fetchRecipeDetails(id: String){
         try{
             when(val response = recipeRepository.getRecipe(id)){
@@ -31,8 +43,8 @@ class GetRecipeDetailsUseCaseImpl  @Inject constructor(private val recipeReposit
                     //Ref: com.yum.tummly.data.model.recipe_details.GetRecipeDetailsResponse
                     val details = RecipeDetails(yield = response.value.servings?:"",
                         ingredientLines = response.value.ingredientLines,
-                        flavors = response.value.flavors,
-                        image = response.value.images[0].hostedMediumUrl)
+                        flavors = mapFlavors(response.value.flavors?: mapOf<String, Double>()),
+                        image = response.value.images[0].hostedLargeUrl)
                     recipe.emit(RecipeDetailsResponse.Success(details))
                 }
             }

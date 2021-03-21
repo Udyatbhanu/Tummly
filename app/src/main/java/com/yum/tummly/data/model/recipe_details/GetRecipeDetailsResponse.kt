@@ -12,7 +12,6 @@ data class GetRecipeDetailsResponse(
     var attribution: Attribution? = Attribution(),
     @Json(name = "flavors")
     var flavors: Map<String, Double>? = mapOf(),
-//    var flavors: Flavors = Flavors(),
     @Json(name = "id")
     var id: String = "",
     @Json(name = "images")

@@ -68,7 +68,6 @@ class RecipesFragment : Fragment() {
 
             when(result){
                 is Recipes.Success -> {
-                    println(result.data)
                     recipeListAdapter.submitList(result.data.toMutableList())
                 }
             }
