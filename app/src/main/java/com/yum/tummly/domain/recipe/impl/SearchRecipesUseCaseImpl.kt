@@ -91,6 +91,8 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
      */
     override suspend fun clear() {
         _cache.clear()
+        isEnd = true
+        nextOffSet = 0
         recipes.emit(Recipes.Success(_cache))
     }
 

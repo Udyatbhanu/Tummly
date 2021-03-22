@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <!-- Search recipes -->
+    <dimen name="image_size">100dp</dimen>
+    <dimen name="recipe_text_size">17sp</dimen>
+    <dimen name="recipe_item_padding">14dp</dimen>
+
     <!--Recipe Row-->
     <dimen name="recipe_row_height">50dp</dimen>
     <dimen name="recipe_title_size">15sp</dimen>
