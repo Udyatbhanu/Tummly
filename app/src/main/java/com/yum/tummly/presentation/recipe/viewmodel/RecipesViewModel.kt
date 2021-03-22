@@ -23,6 +23,14 @@ class RecipesViewModel @Inject constructor(private val searchRecipesUseCase: Sea
         queryLiveData.postValue(query)
     }
 
+    fun listScrolled() {
+        viewModelScope.launch {
+            val query = queryLiveData.value
+            searchRecipesUseCase.requestMore(query!!)
+        }
+
+    }
+
 
     fun clear(){
         viewModelScope.launch {

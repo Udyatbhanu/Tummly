@@ -15,7 +15,8 @@ import javax.inject.Inject
 /**
  * This class holds the business logic for searching a repository and also keeps track oof the pagination
  */
-private const val STARTING_PAGE_INDEX = 0
+private const val STARTING_OFFSET = 0
+private const val OFFSET_LIMIT = 500
 
 class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository: RecipeRepository) :
     SearchRecipesUseCase {
@@ -24,25 +25,47 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
     private val recipes = MutableSharedFlow<Recipes>(replay = 1)
 
     private var isRequestInProgress = false
-    private var lastRequestedPage = STARTING_PAGE_INDEX
+    private var nextOffSet = STARTING_OFFSET
+    private var isEnd = false
 
+
+    private fun calculateNextOffset(resultCount: Int) {
+        isEnd = _cache.size >= resultCount
+        nextOffSet += PAGE_SIZE
+    }
+
+    override suspend fun requestMore(query: String) {
+        if (isRequestInProgress || isEnd || nextOffSet >= OFFSET_LIMIT) return
+        requestData(query)
+    }
+
+
+    private fun getDisplayImageUrl(imageMap: Map<String, String>): String {
+        if (imageMap.isNotEmpty()) {
+            return imageMap.iterator().next().value
+        }
+        return ""
+    }
 
     private suspend fun requestData(query: String) {
         isRequestInProgress = true
 
         try {
             when (val response =
-                recipeRepository.searchRecipe(query, lastRequestedPage, PAGE_SIZE)) {
+                recipeRepository.searchRecipe(query, nextOffSet, PAGE_SIZE)) {
                 is ResultWrapper.Success -> {
+                    //Ref: com.yum.tummly.data.model.recipe_details.GetRecipeDetailsResponse
                     val recipesMapped = response.value.matches.map {
                         Recipe(
                             id = it.id,
                             recipeName = it.recipeName,
-                            imageUrl = it.imageUrlsBySize.iterator().next().value,
+                            imageUrl = getDisplayImageUrl(it.imageUrlsBySize),
                             timeInSeconds = it.totalTimeInSeconds
                         )
                     }
                     _cache.addAll(recipesMapped)
+                    println("_cache size ${_cache.size}")
+                    calculateNextOffset(response.value.totalMatchCount)
                     recipes.emit(Recipes.Success(_cache))
                 }
 
@@ -71,8 +94,6 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
         recipes.emit(Recipes.Success(_cache))
     }
 
-    override suspend fun requestMore(query: String) {
-    }
 
     companion object {
         private const val PAGE_SIZE = 50

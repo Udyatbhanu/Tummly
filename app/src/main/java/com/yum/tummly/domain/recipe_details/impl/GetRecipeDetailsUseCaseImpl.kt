@@ -43,7 +43,7 @@ class GetRecipeDetailsUseCaseImpl  @Inject constructor(private val recipeReposit
         try{
             when(val response = recipeRepository.getRecipe(id)){
                 is ResultWrapper.Success -> {
-                    //Ref: com.yum.tummly.data.model.recipe_details.GetRecipeDetailsResponse
+                    //Ref: com.yum.tummly.data.model.recipe.GetRecipesResponse
                     with(response.value){
                         val details = RecipeDetails(yield = servings?:"",
                             ingredientLines = ingredientLines,
