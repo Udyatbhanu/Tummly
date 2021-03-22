@@ -49,7 +49,6 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
 
     private suspend fun requestData(query: String) {
         isRequestInProgress = true
-
         try {
             when (val response =
                 recipeRepository.searchRecipe(query, nextOffSet, PAGE_SIZE)) {
@@ -60,14 +59,13 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
                             id = it.id,
                             recipeName = it.recipeName,
                             imageUrl = getDisplayImageUrl(it.imageUrlsBySize),
-                            time = it.totalTimeInSeconds?.div(60).toString(),
+                            time = it.totalTimeInSeconds?.div(60).toString(), // time in mins
                             rating = it.rating.toString(),
                             ingredientCount = it.ingredients.size.toString()
 
                         )
                     }
                     _cache.addAll(recipesMapped)
-                    println("_cache size ${_cache.size}")
                     calculateNextOffset(response.value.totalMatchCount)
                     recipes.emit(Recipes.Success(_cache))
                 }

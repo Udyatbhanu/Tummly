@@ -23,4 +23,6 @@
     <dimen name="margin_large">12dp</dimen>
     <dimen name="margin_yet_extra_large">25dp</dimen>
 
+    <dimen name="spacing_medium">5dp</dimen>
+
 </resources>

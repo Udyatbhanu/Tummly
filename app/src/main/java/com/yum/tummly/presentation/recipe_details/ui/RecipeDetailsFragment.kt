@@ -24,6 +24,7 @@ sealed class RecipeDetailsState {
     data class Recipe(val details: RecipeDetails) : RecipeDetailsState()
     object Error : RecipeDetailsState()
     object Idle : RecipeDetailsState()
+    object Loading : RecipeDetailsState()
 }
 
 @AndroidEntryPoint
@@ -59,7 +60,7 @@ class RecipeDetailsFragment : Fragment() {
         requireActivity().actionBar?.hide()
         (activity as? AppCompatActivity)?.supportActionBar?.show()
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationIcon(R.drawable.ic_action_name)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
         binding.toolbar.setNavigationOnClickListener {
             Navigation.findNavController(binding.root).popBackStack()
         }
@@ -86,6 +87,8 @@ class RecipeDetailsFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is RecipeDetailsState.Recipe -> {
+                    binding.loading.visibility = View.GONE
+
                     with(it.details){
                         ingredientsAdapter.submitList(ingredientLines?.toMutableList())
                         flavorsAdapter.submitList(flavors?.toMutableList())
@@ -93,7 +96,9 @@ class RecipeDetailsFragment : Fragment() {
                     }
 
                 }
+                is RecipeDetailsState.Loading -> binding.loading.visibility = View.VISIBLE
 
+                else -> binding.loading.visibility = View.GONE
             }
         }
 

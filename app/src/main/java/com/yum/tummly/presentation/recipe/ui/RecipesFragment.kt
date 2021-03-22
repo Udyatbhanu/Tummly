@@ -1,9 +1,12 @@
 package com.yum.tummly.presentation.recipe.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.NonNull
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -48,14 +51,13 @@ class RecipesFragment : Fragment() {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(searchQuery: String?): Boolean {
                     val query = searchQuery ?: DEFAULT_QUERY
-                    binding.fab.visibility = View.GONE
+                    binding.loading.visibility = View.VISIBLE
                     viewModel.searchRecipes(query)
                     return false
                 }
 
                 override fun onQueryTextChange(searchQuery: String?): Boolean {
                     if (searchQuery.isNullOrEmpty()) {
-                        binding.fab.visibility = View.GONE
                         viewModel.clear()
                     }
 
@@ -76,12 +78,28 @@ class RecipesFragment : Fragment() {
 
             when (result) {
                 is Recipes.Success -> {
+                    binding.loading.visibility = View.GONE
                     recipeListAdapter.submitList(result.data.toMutableList())
                 }
+                else -> binding.loading.visibility = View.GONE
             }
         }
     }
 
+
+    /**
+     * Handle the back button
+     */
+    override fun onAttach(@NonNull context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
+    }
 
     /**
      *

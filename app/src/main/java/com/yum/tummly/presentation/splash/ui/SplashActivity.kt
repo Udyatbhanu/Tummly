@@ -37,7 +37,11 @@ class SplashActivity : AppCompatActivity() {
         // Using a handler to delay loading the MainActivity
         Handler(Looper.getMainLooper()).postDelayed({
             // Start activity
-            startActivity(Intent(this, MainActivity::class.java))
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish()
+            startActivity(intent)
 
             // Animate the loading of new activity
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
