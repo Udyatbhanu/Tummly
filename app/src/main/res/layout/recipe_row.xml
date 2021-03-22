@@ -126,7 +126,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:text="Total Calories"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/recipe_title_size" />
 
                         <TextView
                             android:id="@+id/totalCalories"
@@ -135,7 +135,7 @@
                             android:layout_gravity="center"
                             android:text="--"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/recipe_title_size" />
 
                     </LinearLayout>
 
@@ -156,16 +156,16 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:text="@string/total_time"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/recipe_title_size" />
 
                         <TextView
                             android:id="@+id/totalTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="20"
+                            android:text="@{recipe.time}"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/recipe_title_size"/>
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
