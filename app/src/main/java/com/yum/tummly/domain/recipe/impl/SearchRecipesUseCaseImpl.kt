@@ -60,7 +60,10 @@ class SearchRecipesUseCaseImpl @Inject constructor(private val recipeRepository:
                             id = it.id,
                             recipeName = it.recipeName,
                             imageUrl = getDisplayImageUrl(it.imageUrlsBySize),
-                            time = it.totalTimeInSeconds?.div(60).toString()
+                            time = it.totalTimeInSeconds?.div(60).toString(),
+                            rating = it.rating.toString(),
+                            ingredientCount = it.ingredients.size.toString()
+
                         )
                     }
                     _cache.addAll(recipesMapped)

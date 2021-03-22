@@ -58,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/recipeName"
-                    android:layout_width="300dp"
+                    android:layout_width="@dimen/content_attributes_width"
                     android:layout_height="wrap_content"
                     android:maxLines="4"
                     android:paddingStart="@dimen/recipe_item_padding"
@@ -76,7 +76,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/contentAttributesLayout"
-                    android:layout_width="300dp"
+                    android:layout_width="@dimen/content_attributes_width"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
 
                         android:orientation="vertical"
-                        app:layout_constraintEnd_toStartOf="@+id/caloriesLayout"
+                        app:layout_constraintEnd_toStartOf="@+id/totalTimeLayout"
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -97,58 +97,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ingredients"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/recipe_title_size" />
 
                         <TextView
                             android:id="@+id/ingredients"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="4"
+                            android:text="@{recipe.ingredientCount}"
+                            android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/recipe_title_size" />
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:id="@+id/caloriesLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toStartOf="@+id/totalTimeLayout"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toEndOf="@+id/ingredientsLayout"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:text="Total Calories"
-                            android:textSize="@dimen/recipe_title_size" />
-
-                        <TextView
-                            android:id="@+id/totalCalories"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="--"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/recipe_title_size" />
-
-                    </LinearLayout>
-
-
+                    <!-- Prep time START -->
                     <LinearLayout
                         android:id="@+id/totalTimeLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ratingLayout"
                         app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toEndOf="@+id/caloriesLayout"
+                        app:layout_constraintStart_toEndOf="@+id/ingredientsLayout"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -163,10 +135,45 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="@{recipe.time}"
+                            android:text="@{@string/time_format(recipe.time)}"
+                            android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/recipe_title_size"/>
                     </LinearLayout>
+                    <!-- Prep time END -->
+
+
+                    <!-- Rating START -->
+                    <LinearLayout
+                        android:id="@+id/ratingLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toEndOf="@+id/totalTimeLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/rating"
+                            android:textSize="@dimen/recipe_title_size" />
+
+                        <TextView
+                            android:id="@+id/rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@{recipe.rating}"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/recipe_title_size" />
+
+                    </LinearLayout>
+                    <!-- Rating START -->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

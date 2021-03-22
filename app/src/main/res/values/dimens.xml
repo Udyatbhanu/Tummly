@@ -4,7 +4,7 @@
 
     <!-- Search recipes -->
     <dimen name="image_size">100dp</dimen>
-    <dimen name="recipe_text_size">17sp</dimen>
+    <dimen name="recipe_text_size">18sp</dimen>
     <dimen name="recipe_item_padding">14dp</dimen>
 
     <!--Recipe Row-->
@@ -12,7 +12,7 @@
     <dimen name="recipe_title_size">15sp</dimen>
     <dimen name="servings_text_size">11sp</dimen>
     <dimen name="recipe_row_padding">7dp</dimen>
-
+    <dimen name="content_attributes_width">300dp</dimen>
 
     <dimen name="text_size_splash">20sp</dimen>
 

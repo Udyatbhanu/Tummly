@@ -15,6 +15,10 @@ import com.yum.tummly.MainActivity
 import com.yum.tummly.R
 import com.yum.tummly.databinding.ActivitySplashBinding
 
+
+/**
+ * Splash screen is meant for some app initialization work, will use a view model as and when necessary
+ */
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
 
@@ -31,14 +35,13 @@ class SplashActivity : AppCompatActivity() {
             .into(binding.splashImg)
 
         // Using a handler to delay loading the MainActivity
-
         Handler(Looper.getMainLooper()).postDelayed({
             // Start activity
             startActivity(Intent(this, MainActivity::class.java))
 
             // Animate the loading of new activity
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }, 3000)
+        }, SPLASH_SCREEN_DELAY)
 
     }
 
@@ -64,6 +67,7 @@ class SplashActivity : AppCompatActivity() {
 
     companion object {
         private const val SPLASH_SCREEN_DELAY = 3000L
-        private const val SPLASH_IMAGE_URL = "https://hawkerfresh.s3.ap-south-1.amazonaws.com/tummly/Recipes+made+to+order.png"
+        private const val SPLASH_IMAGE_URL =
+            "https://hawkerfresh.s3.ap-south-1.amazonaws.com/tummly/splash.png"
     }
 }

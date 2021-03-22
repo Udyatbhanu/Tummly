@@ -14,13 +14,14 @@ import com.yum.tummly.R
 import com.yum.tummly.databinding.FragmentRecipesBinding
 import com.yum.tummly.domain.model.Recipes
 import com.yum.tummly.presentation.recipe.viewmodel.RecipesViewModel
+import com.yum.tummly.presentation.scrollToTop
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment() {
     private lateinit var binding: FragmentRecipesBinding
     private val viewModel by viewModels<RecipesViewModel>()
-    private val recipeListAdapter : RecipeListAdapter = RecipeListAdapter()
+    private val recipeListAdapter: RecipeListAdapter = RecipeListAdapter()
 
 
     override fun onCreateView(
@@ -46,13 +47,15 @@ class RecipesFragment : Fragment() {
             isIconified = false
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(searchQuery: String?): Boolean {
-                    val query = searchQuery?: DEFAULT_QUERY
+                    val query = searchQuery ?: DEFAULT_QUERY
+                    binding.fab.visibility = View.GONE
                     viewModel.searchRecipes(query)
                     return false
                 }
 
                 override fun onQueryTextChange(searchQuery: String?): Boolean {
-                    if(searchQuery.isNullOrEmpty()){
+                    if (searchQuery.isNullOrEmpty()) {
+                        binding.fab.visibility = View.GONE
                         viewModel.clear()
                     }
 
@@ -64,13 +67,14 @@ class RecipesFragment : Fragment() {
         }
         binding.recipeList.adapter = recipeListAdapter
         setupScrollListener()
+        scrollToTop(binding.recipeList)
 
     }
 
     private fun subscribe() {
-        viewModel.state.observe(viewLifecycleOwner){result ->
+        viewModel.state.observe(viewLifecycleOwner) { result ->
 
-            when(result){
+            when (result) {
                 is Recipes.Success -> {
                     recipeListAdapter.submitList(result.data.toMutableList())
                 }
@@ -87,16 +91,21 @@ class RecipesFragment : Fragment() {
         binding.recipeList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-//                binding.fab.visibility = View.VISIBLE
+
                 val totalItemCount = layoutManager.itemCount
                 val visibleItemCount = layoutManager.childCount
                 val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
                 if (visibleItemCount + lastVisibleItem + 5 >= totalItemCount) {
-
+                    binding.fab.visibility = View.VISIBLE
                     viewModel.listScrolled()
                 }
             }
         })
+
+
+        binding.fab.setOnClickListener {
+            scrollToTop(binding.recipeList)
+        }
     }
 
     companion object {
