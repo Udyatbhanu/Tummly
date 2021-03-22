@@ -1,9 +1,11 @@
 <resources>
+    <!--Splash-->
+    <string name="splash_loading">Loading…</string>
+
     <string name="app_name">Tummly</string>
     <string name="search_placeholder">Search Recipe</string>
     <string name="bitter_text">This item is bitter</string>
     <string name="total_time">Total Time</string>
-    <string name="ingredients">Ingredients</string>
 
 
 

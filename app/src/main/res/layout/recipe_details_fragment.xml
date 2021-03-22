@@ -127,18 +127,6 @@
                 <!--Header panel END-->
 
 
-                <!--Ingredients list START-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ingredients"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical"
-                    app:layoutManager="LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@+id/flavors"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/header_panel" />
-                <!--Ingredients list END-->
-
                 <!--Flavor list START-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/flavors"
@@ -148,11 +136,26 @@
                     android:scrollbars="none"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+                    app:layout_constraintBottom_toTopOf="@+id/ingredients"
+                    app:layout_constraintTop_toBottomOf="@+id/header_panel"/>
+                <!--Flavor list END-->
+
+                <!--Ingredients list START-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/flavors" />
+                <!--Ingredients list END-->
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!--Flavor list END-->
+
         </androidx.core.widget.NestedScrollView>
 
 

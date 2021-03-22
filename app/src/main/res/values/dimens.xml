@@ -13,5 +13,8 @@
     <dimen name="servings_text_size">11sp</dimen>
     <dimen name="recipe_row_padding">7dp</dimen>
 
+    <dimen name="margin_yet_extra_large">25dp</dimen>
+    <dimen name="text_size_splash">20sp</dimen>
+
 
 </resources>
