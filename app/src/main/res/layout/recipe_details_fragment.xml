@@ -34,7 +34,6 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
-
                 app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -72,6 +71,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/flavors_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/recipe_item_padding"
+                    android:text="@string/flavors"
+                    android:textSize="@dimen/text_size_splash"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/flavors"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <!--Flavor list START-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/flavors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:scrollbars="none"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/header_panel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/flavors_header" />
+                <!--Flavor list END-->
+
+
                 <!--Header panel START-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +108,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/ingredients"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/flavors">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
@@ -127,19 +153,6 @@
                 <!--Header panel END-->
 
 
-                <!--Flavor list START-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/flavors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:scrollbars="none"
-                    app:layoutManager="LinearLayoutManager"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/ingredients"
-                    app:layout_constraintTop_toBottomOf="@+id/header_panel"/>
-                <!--Flavor list END-->
-
                 <!--Ingredients list START-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ingredients"
@@ -148,9 +161,8 @@
                     android:scrollbars="vertical"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/flavors" />
+                    app:layout_constraintTop_toBottomOf="@+id/header_panel" />
                 <!--Ingredients list END-->
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
